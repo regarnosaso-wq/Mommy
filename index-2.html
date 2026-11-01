@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffc9df">
+<title>For Maa💕</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;padding:20px;
+ display:grid;place-items:center;
+ font-family:Arial,sans-serif;
+ background:linear-gradient(135deg,#fff0f6,#ffc9df);
+ color:#81445e;
+}
+.card{
+ width:100%;max-width:450px;padding:28px 22px;
+ background:#ffffffed;border-radius:25px;
+ text-align:center;box-shadow:0 10px 35px #d77b9b44;
+}
+h1,h2{color:#d65d91}
+.heart{font-size:45px}
+input{
+ width:100%;padding:15px;margin:15px 0;
+ border:2px solid #f2b4ce;border-radius:14px;
+ text-align:center;font-size:17px;
+}
+button{
+ border:0;border-radius:30px;padding:13px 20px;
+ margin:6px;background:#df78a2;color:white;
+ font-weight:bold;font-size:15px;cursor:pointer;
+}
+.message{
+ background:#fff3f8;padding:17px;border-radius:15px;
+ margin:15px 0;line-height:1.7;text-align:left;
+}
+.hidden{display:none!important}
+#error{color:#cf3d70}
+button:focus-visible,input:focus-visible{
+ outline:3px solid #b94f7e;outline-offset:3px;
+}
+</style>
+</head>
+<body>
+
+<div class="card" id="lock">
+ <div class="heart">💗</div>
+ <h1>A little place for Maa💕</h1>
+ <p>This page is just for you. Enter our secret password. 🥹</p>
+ <input id="pass" type="password" placeholder="Enter password" autocomplete="off">
+ <button id="unlockBtn">Open my heart 💌</button>
+ <p id="error" role="alert"></p>
+</div>
+
+<div class="card hidden" id="home">
+ <div class="heart">🌷</div>
+ <h1>For you, Maa💕</h1>
+ <p>A few things I want you to know.</p>
+
+ <div class="message">
+ I don't want to only tell you that I care.
+ I want to show you through the way I treat you,
+ listen to you and make time for you. 💗
+ </div>
+
+ <button data-page="promise">My promises ♡</button>
+ <button data-page="letter">Love letter 💌</button>
+ <button data-page="reasons">Why you matter 🌸</button>
+
+ <div id="content" aria-live="polite"></div>
+</div>
+
+<script>
+const pass=document.getElementById("pass");
+const lock=document.getElementById("lock");
+const home=document.getElementById("home");
+const error=document.getElementById("error");
+
+function unlock(){
+ if(pass.value==="us4ever"){
+  lock.classList.add("hidden");
+  home.classList.remove("hidden");
+ }else{
+  error.textContent="Wrong password. Try again 💗";
+  pass.value="";
+ }
+}
+
+document.getElementById("unlockBtn").addEventListener("click",unlock);
+pass.addEventListener("keydown",function(e){
+ if(e.key==="Enter") unlock();
+});
+
+const pages={
+ promise:`
+ <h2>My promises ♡</h2>
+ <div class="message">
+ ♡ I will always try to be honest with you.<br><br>
+ ♡ I will listen to your feelings.<br><br>
+ ♡ I will respect you and your boundaries.<br><br>
+ ♡ I will make time for you.<br><br>
+ ♡ I will own my mistakes and try to improve.
+ </div>`,
+ letter:`
+ <h2>Dear Maa💕</h2>
+ <div class="message">
+ I know we have only just started this journey,
+ and I don't expect you to believe everything
+ from one message. I want to show you that
+ I genuinely like you by being consistent,
+ caring and thoughtful.<br><br>
+ I want to learn the little things that make
+ you happy, hear about your day and make
+ you feel appreciated. I won't promise to be
+ perfect, but I promise to keep putting in
+ real effort. 💗<br><br>
+ With lots of care,<br>
+ <b>Me ♡</b>
+ </div>`,
+ reasons:`
+ <h2>Why you matter 🌸</h2>
+ <div class="message">
+ You matter because you're you.
+ I want to know your thoughts, your favourite
+ things, what makes you laugh and what
+ matters to you. You deserve to feel valued
+ and appreciated. 💕
+ </div>`
+};
+
+document.querySelectorAll("[data-page]").forEach(btn=>{
+ btn.addEventListener("click",()=>{
+  const content=document.getElementById("content");
+  content.innerHTML=pages[btn.dataset.page]+
+   '<button id="closeBtn">Close ♡</button>';
+  document.getElementById("closeBtn").addEventListener("click",()=>{
+   content.innerHTML="";
+  });
+ });
+});
+</script>
+</body>
+</html>
